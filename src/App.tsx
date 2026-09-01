@@ -15,6 +15,7 @@ import { Sidebar } from './components/Sidebar';
 import { SearchModal } from './components/SearchModal';
 import { StoragePanelModal } from './components/StoragePanelModal';
 import { ExportImportModal } from './components/ExportImportModal';
+import { SettingsModal } from './components/SettingsModal';
 import { useMessages } from './store/useMessages';
 import { useSyncedMessages } from './store/useSyncedMessages';
 import { useEngine } from './store/useEngine';
@@ -61,6 +62,7 @@ function App() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [storageOpen, setStorageOpen] = useState(false);
   const [exportImportOpen, setExportImportOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   // Message stores wired to active conversation ID
   const localMessages = useMessages(
@@ -147,14 +149,10 @@ function App() {
           onSelectPersona={setActivePersona}
           onAddPersona={addPersona}
           onDeletePersona={deletePersona}
-          isCompareMode={compare.isCompareMode}
-          onToggleCompare={compare.toggleCompareMode}
           syncEnabled={syncEnabled}
-          peerCount={peerCount}
-          onToggleSync={toggleSync}
-          onOpenPairing={() => setPairingOpen(true)}
+          isCompareMode={compare.isCompareMode}
           onOpenSidebar={() => setSidebarOpen(true)}
-          onOpenStorage={() => setStorageOpen(true)}
+          onOpenSettings={() => setSettingsOpen(true)}
         />
 
         {/* Online/offline indicator + install prompt */}
@@ -250,6 +248,30 @@ function App() {
         onClose={() => setExportImportOpen(false)}
         activeConversationId={activeConversationId}
         onImportSuccess={(newConvId) => setActiveConversationId(newConvId)}
+      />
+
+      {/* Settings & Tools Modal */}
+      <SettingsModal
+        isOpen={settingsOpen}
+        onClose={() => setSettingsOpen(false)}
+        messageCount={messages.length}
+        onClear={clearMessages}
+        engineStatus={engine.status}
+        modelId={engine.modelId}
+        onModelSelect={handleModelSelect}
+        personas={personas}
+        activePersona={activePersona}
+        onSelectPersona={setActivePersona}
+        onAddPersona={addPersona}
+        onDeletePersona={deletePersona}
+        isCompareMode={compare.isCompareMode}
+        onToggleCompare={compare.toggleCompareMode}
+        syncEnabled={syncEnabled}
+        peerCount={peerCount}
+        onToggleSync={toggleSync}
+        onOpenPairing={() => setPairingOpen(true)}
+        onOpenStorage={() => setStorageOpen(true)}
+        onOpenExportImport={() => setExportImportOpen(true)}
       />
 
       {/* Pairing Modal */}

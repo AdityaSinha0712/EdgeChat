@@ -125,34 +125,34 @@ export function FileDropZone({
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
-          className={`flex flex-col sm:flex-row items-center justify-between gap-3 rounded-lg border border-dashed px-4 py-3 text-xs transition-colors ${
+          className={`flex items-center justify-between gap-2 rounded-lg border border-dashed px-3 py-1.5 sm:px-4 sm:py-2 text-[11px] sm:text-xs transition-colors ${
             isDragOver
               ? 'border-cyan-400/50 bg-cyan-500/5 text-cyan-300'
               : 'border-neutral-700/50 text-neutral-500 hover:border-cyan-500/30'
           }`}
         >
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 truncate">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
               fill="currentColor"
-              className="h-4 w-4 text-cyan-400/70 shrink-0"
+              className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-cyan-400/70 shrink-0"
             >
               <path d="M9.25 13.25a.75.75 0 0 0 1.5 0V4.636l2.955 3.129a.75.75 0 0 0 1.09-1.03l-4.25-4.5a.75.75 0 0 0-1.09 0l-4.25 4.5a.75.75 0 1 0 1.09 1.03L9.25 4.636v8.614Z" />
               <path d="M3.5 12.75a.75.75 0 0 0-1.5 0v2.5A2.75 2.75 0 0 0 4.75 18h10.5A2.75 2.75 0 0 0 18 15.25v-2.5a.75.75 0 0 0-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5Z" />
             </svg>
-            <span>
+            <span className="truncate">
               {isDragOver
-                ? 'Drop PDF or TXT files here'
-                : 'Drop PDF or TXT files for grounded Q&A'}
+                ? 'Drop files here'
+                : 'Drop PDF/TXT files for RAG'}
             </span>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0">
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="rounded-md border border-neutral-700 bg-neutral-800/80 px-2.5 py-1 text-xs text-neutral-300 transition-colors hover:border-cyan-500/40 hover:text-cyan-300"
+              className="rounded-md border border-neutral-700 bg-neutral-800/80 px-2 py-0.5 sm:px-2.5 sm:py-1 text-[11px] sm:text-xs text-neutral-300 transition-colors hover:border-cyan-500/40 hover:text-cyan-300"
             >
               Choose Files
             </button>

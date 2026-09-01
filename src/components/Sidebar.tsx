@@ -149,7 +149,7 @@ export function Sidebar({
 
                 {/* Edit & Delete Actions */}
                 {!isEditing && (
-                  <div className="flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100">
+                  <div className="flex items-center gap-1 opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100">
                     <button
                       onClick={() => handleStartRename(conv)}
                       className="rounded p-1 text-neutral-500 hover:text-cyan-300"

@@ -10,6 +10,15 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Prevent auto-zooming on mobile iOS/Android when focusing inputs */
+@media screen and (max-width: 768px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
 /* ── Custom scrollbar ───────────────────────────────────────── */
 ::-webkit-scrollbar {
   width: 6px;

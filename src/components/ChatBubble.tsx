@@ -122,39 +122,62 @@ export function ChatBubble({
           <span
             className={`transition-opacity ${
               isUser
-                ? 'text-cyan-200/60 opacity-0 group-hover:opacity-100'
-                : 'text-neutral-500 opacity-0 group-hover:opacity-100'
+                ? 'text-cyan-200/60 opacity-80 sm:opacity-0 sm:group-hover:opacity-100'
+                : 'text-neutral-500 opacity-80 sm:opacity-0 sm:group-hover:opacity-100'
             }`}
           >
             {formatTime(message.createdAt)}
             {message.editedAt && ' (edited)'}
           </span>
 
-          {/* Action buttons */}
-          <div className="flex items-center gap-1.5 opacity-0 transition-opacity group-hover:opacity-100">
+          {/* Action buttons — visible on mobile, hover on desktop */}
+          <div className="flex items-center gap-1.5 opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100">
             <button
               onClick={handleCopyText}
-              className="text-neutral-400 hover:text-neutral-200"
+              className="flex items-center gap-1 rounded-md bg-neutral-900/60 sm:bg-transparent px-1.5 py-0.5 text-neutral-400 hover:bg-neutral-800 hover:text-neutral-200"
               title="Copy text"
             >
-              {copied ? '✓ Copied' : 'Copy'}
+              {copied ? (
+                <>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="h-3 w-3 text-emerald-400">
+                    <path fillRule="evenodd" d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z" clipRule="evenodd" />
+                  </svg>
+                  <span className="text-emerald-400 font-medium">Copied</span>
+                </>
+              ) : (
+                <>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="h-3 w-3">
+                    <path d="M4 2a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2V4a2 2 0 0 1 2-2H4Z" />
+                    <path d="M7 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2V4Z" />
+                  </svg>
+                  <span>Copy</span>
+                </>
+              )}
             </button>
+
             {isUser && onEditMessage && !isEditing && (
               <button
                 onClick={() => setIsEditing(true)}
-                className="text-cyan-300 hover:underline"
+                className="flex items-center gap-1 rounded-md bg-neutral-900/60 sm:bg-transparent px-1.5 py-0.5 text-cyan-300 hover:bg-cyan-500/10 hover:underline"
                 title="Edit message"
               >
-                Edit
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="h-3 w-3">
+                  <path d="M13.488 2.513a1.75 1.75 0 0 0-2.475 0L3.05 10.476a.75.75 0 0 0-.168.308l-.8 3.2a.75.75 0 0 0 .91.91l3.2-.8a.75.75 0 0 0 .308-.168l7.963-7.963a1.75 1.75 0 0 0 0-2.475Z" />
+                </svg>
+                <span>Edit</span>
               </button>
             )}
+
             {!isUser && onRegenerateResponse && (
               <button
                 onClick={() => onRegenerateResponse(message.id)}
-                className="text-teal-300 hover:underline"
+                className="flex items-center gap-1 rounded-md bg-neutral-900/60 sm:bg-transparent px-1.5 py-0.5 text-teal-300 hover:bg-teal-500/10 hover:underline"
                 title="Regenerate reply"
               >
-                Regenerate
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="h-3 w-3">
+                  <path fillRule="evenodd" d="M13.836 2.477a.75.75 0 0 1 .75.75v3.182a.75.75 0 0 1-.75.75h-3.182a.75.75 0 0 1 0-1.5h1.613l-1.801-1.796a4.5 4.5 0 0 0-6.364 0 4.5 4.5 0 0 0 0 6.364.75.75 0 0 1-1.06 1.06 6 6 0 0 1 0-8.484 6 6 0 0 1 8.484 0l1.801 1.796V3.227a.75.75 0 0 1 .75-.75Zm-11.672 11.046a.75.75 0 0 1-.75-.75v-3.182a.75.75 0 0 1 .75-.75h3.182a.75.75 0 0 1 0 1.5H3.733l1.801 1.796a4.5 4.5 0 0 0 6.364 0 4.5 4.5 0 0 0 0-6.364.75.75 0 0 1 1.06-1.06 6 6 0 0 1 0 8.484 6 6 0 0 1-8.484 0l-1.801-1.796v1.613a.75.75 0 0 1-.75.75Z" clipRule="evenodd" />
+                </svg>
+                <span>Regenerate</span>
               </button>
             )}
           </div>

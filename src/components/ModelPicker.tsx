@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { AVAILABLE_MODELS, type ModelOption } from '../lib/models';
 import type { EngineStatus } from '../store/useEngine';
+import { isMobileDevice } from '../lib/device';
+import { MobileModelWarningModal } from './MobileModelWarningModal';
 
 interface ModelPickerProps {
   currentModelId: string;
@@ -14,12 +16,31 @@ export function ModelPicker({
   onSelect,
 }: ModelPickerProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [pendingModelWarning, setPendingModelWarning] =
+    useState<ModelOption | null>(null);
+
   const isLoading =
     engineStatus === 'loading' || engineStatus === 'checking-gpu';
 
   const currentModel =
     AVAILABLE_MODELS.find((m) => m.id === currentModelId) ??
     AVAILABLE_MODELS[0];
+
+  function handleModelClick(model: ModelOption) {
+    if (model.id === currentModelId) {
+      setIsOpen(false);
+      return;
+    }
+
+    if (isMobileDevice() && model.isHeavyForMobile) {
+      setIsOpen(false);
+      setPendingModelWarning(model);
+      return;
+    }
+
+    setIsOpen(false);
+    onSelect(model.id);
+  }
 
   return (
     <div className="relative">
@@ -79,10 +100,7 @@ export function ModelPicker({
               {AVAILABLE_MODELS.map((model: ModelOption) => (
                 <button
                   key={model.id}
-                  onClick={() => {
-                    onSelect(model.id);
-                    setIsOpen(false);
-                  }}
+                  onClick={() => handleModelClick(model)}
                   className={`flex w-full flex-col gap-1 rounded-lg px-3 py-2.5 text-left transition-colors ${
                     model.id === currentModelId
                       ? 'bg-cyan-500/10 text-cyan-300'
@@ -90,7 +108,17 @@ export function ModelPicker({
                   }`}
                 >
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-sm font-medium">{model.label}</span>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-sm font-medium">{model.label}</span>
+                      {model.isHeavyForMobile && (
+                        <span
+                          title="High memory/VRAM requirement — caution on mobile"
+                          className="rounded bg-amber-500/10 border border-amber-500/20 px-1 py-0.2 text-[9px] font-mono text-amber-400"
+                        >
+                          ⚠️ Heavy
+                        </span>
+                      )}
+                    </div>
                     <div className="flex items-center gap-1.5 shrink-0">
                       <span className="rounded bg-cyan-500/10 border border-cyan-500/20 px-1.5 py-0.5 text-[10px] font-mono text-cyan-300">
                         {model.cutoff}
@@ -109,6 +137,22 @@ export function ModelPicker({
           </div>
         </>
       )}
+
+      {/* Mobile Model Warning Modal */}
+      <MobileModelWarningModal
+        model={pendingModelWarning}
+        isOpen={!!pendingModelWarning}
+        onClose={() => setPendingModelWarning(null)}
+        onProceed={(id) => {
+          onSelect(id);
+          setPendingModelWarning(null);
+        }}
+        onSelectRecommended={(id) => {
+          onSelect(id);
+          setPendingModelWarning(null);
+        }}
+      />
     </div>
   );
 }
+

@@ -68,7 +68,7 @@ export function Composer({ onSend, disabled = false }: ComposerProps) {
             disabled={disabled}
             placeholder="Type a message…"
             aria-label="Message input"
-            className="w-full resize-none rounded-xl border border-neutral-700/50 bg-neutral-900 px-4 py-3 pr-12 text-sm text-neutral-100 placeholder-neutral-500 transition-colors focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/25 disabled:opacity-50"
+            className="w-full resize-none rounded-xl border border-neutral-700/50 bg-neutral-900 px-4 py-3 pr-12 text-base sm:text-sm text-neutral-100 placeholder-neutral-500 transition-colors focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/25 disabled:opacity-50"
           />
         </div>
 

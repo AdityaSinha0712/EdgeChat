@@ -1,0 +1,214 @@
+@import 'tailwindcss';
+
+html {
+  font-family:
+    'Inter',
+    system-ui,
+    -apple-system,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Custom scrollbar ───────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ── Message entrance animation ─────────────────────────────── */
+@keyframes message-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-message-in {
+  animation: message-in 0.25s ease-out;
+}
+
+/* ── Focus rings — accessible ────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #818cf8;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Markdown prose styles for assistant messages ─────────────── */
+.prose-chat {
+  line-height: 1.65;
+  word-break: break-word;
+}
+.prose-chat p {
+  margin-bottom: 0.5em;
+}
+.prose-chat p:last-child {
+  margin-bottom: 0;
+}
+.prose-chat h1,
+.prose-chat h2,
+.prose-chat h3,
+.prose-chat h4 {
+  font-weight: 600;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  color: #e5e5e5;
+}
+.prose-chat h1 {
+  font-size: 1.25em;
+}
+.prose-chat h2 {
+  font-size: 1.125em;
+}
+.prose-chat h3 {
+  font-size: 1em;
+}
+.prose-chat ul,
+.prose-chat ol {
+  margin: 0.5em 0;
+  padding-left: 1.5em;
+}
+.prose-chat ul {
+  list-style-type: disc;
+}
+.prose-chat ol {
+  list-style-type: decimal;
+}
+.prose-chat li {
+  margin-bottom: 0.25em;
+}
+.prose-chat blockquote {
+  border-left: 3px solid #525252;
+  padding-left: 0.75em;
+  margin: 0.5em 0;
+  color: #a3a3a3;
+  font-style: italic;
+}
+.prose-chat a {
+  color: #818cf8;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose-chat a:hover {
+  color: #a5b4fc;
+}
+.prose-chat strong {
+  font-weight: 600;
+  color: #e5e5e5;
+}
+.prose-chat em {
+  font-style: italic;
+}
+.prose-chat hr {
+  border-color: #404040;
+  margin: 1em 0;
+}
+
+/* Inline code */
+.prose-chat code:not(pre code) {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+  font-size: 0.85em;
+  font-family: 'Cascadia Code', 'Fira Code', 'JetBrains Mono', monospace;
+}
+
+/* Code blocks */
+.prose-chat pre {
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 0.75em 1em;
+  margin: 0.5em 0;
+  overflow-x: auto;
+  font-size: 0.8em;
+  line-height: 1.5;
+}
+.prose-chat pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+  font-family: 'Cascadia Code', 'Fira Code', 'JetBrains Mono', monospace;
+}
+
+/* Tables */
+.prose-chat table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.5em 0;
+  font-size: 0.9em;
+}
+.prose-chat th,
+.prose-chat td {
+  border: 1px solid #404040;
+  padding: 0.4em 0.75em;
+  text-align: left;
+}
+.prose-chat th {
+  background: rgba(255, 255, 255, 0.04);
+  font-weight: 600;
+  color: #d4d4d4;
+}
+
+/* ── highlight.js dark theme (GitHub Dark Dimmed) ─────────────── */
+.hljs {
+  color: #adbac7;
+}
+.hljs-keyword,
+.hljs-built_in,
+.hljs-type {
+  color: #f47067;
+}
+.hljs-string,
+.hljs-attr {
+  color: #96d0ff;
+}
+.hljs-number,
+.hljs-literal {
+  color: #6cb6ff;
+}
+.hljs-comment {
+  color: #768390;
+  font-style: italic;
+}
+.hljs-title,
+.hljs-function {
+  color: #dcbdfb;
+}
+.hljs-variable,
+.hljs-params {
+  color: #f69d50;
+}
+.hljs-meta {
+  color: #768390;
+}
+
+/* ── Stats overlay animation ─────────────────────────────────── */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
